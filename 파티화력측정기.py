@@ -14,7 +14,7 @@ class dnfCalc:
         if self.buf_name == "헤카테":
             self.buf_str_std4 = buf_str
             self.buf_str_heart = round(buf_str*1.117867, 1)
-            self.buf_str_noheart = (self.buf_str_std4*3 - self.buf_str_heart) / 2
+            self.buf_str_noheart = ((self.buf_str_std4*3) - self.buf_str_heart) / 2
             
             self.max_dealer = max(self.dealers)
             self.max_idx = self.dealers.index(self.max_dealer)
@@ -100,13 +100,16 @@ if st.button("계산하기"):
     model = dnfCalc(buf_name, dealer1, dealer2, dealer3)
     result = model.calculate(buf_str)
     
-    st.subheader("📊 딜 결과")
+    st.subheader("📊 딜 기댓값")
     for i, val in enumerate(model.new_party, 1):
         st.write(f"딜러{i}: {val}")
     st.success(f"총 파티 화력: {result}")
     
     st.caption("30/400 파티 기준")
     st.success(f"{(result / dft) * 100:.1f}%")
+
+    st.caption("공대컷기준")
+    st.success(f"{(result/110) * 100:.1f}%")
     
 
 
