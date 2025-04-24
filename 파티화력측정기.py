@@ -87,10 +87,9 @@ buf_name = st.selectbox("버퍼 타입을 선택하세요", ["헤카테", "뮤�
 
 buf_str = st.number_input("버프력 (예: 400)", value=400.0)
 st.caption("※ 헤카테의 버프력은 던담 4인 기준입니다.")
-
-dealer1 = st.number_input("딜러 1 딜량", value=30.0)
-dealer2 = st.number_input("딜러 2 딜량", value=30.0)
-dealer3 = st.number_input("딜러 3 딜량", value=30.0)
+dealer1 = st.number_input("딜러 1 딜량 (단위 : 억)", value=30.0)
+dealer2 = st.number_input("딜러 2 딜량 (단위 : 억)", value=30.0)
+dealer3 = st.number_input("딜러 3 딜량 (단위 : 억)", value=30.0)
 
 dft = 90
 
