@@ -8,7 +8,7 @@ class dnfCalc:
         
         self.party_str = 0
         self.new_party = []
-    
+
     def calculate(self, buf_str):
         
         if self.buf_name == "헤카테":
@@ -78,8 +78,8 @@ st.markdown("""
 ※ 400버퍼 기준으로 작성되었습니다.            
 """)
 
-
-
+muri = False
+muri_num = 0
 
 
 buf_name = st.selectbox("버퍼 타입을 선택하세요", ["헤카테", "뮤즈", "크루세이더(여)","크루세이더(남)"])
@@ -88,10 +88,29 @@ buf_name = st.selectbox("버퍼 타입을 선택하세요", ["헤카테", "뮤�
 buf_str = st.number_input("버프력 (예: 400)", value=400.0)
 st.caption("※ 헤카테의 버프력은 던담 4인 기준입니다.")
 dealer1 = st.number_input("딜러 1 딜량 (단위 : 억)", value=30.0)
+if st.checkbox("딜러1 무리시너지 여부"):
+    muri = True
+    muri_num += 1
 dealer2 = st.number_input("딜러 2 딜량 (단위 : 억)", value=30.0)
+if st.checkbox("딜러2 무리시너지 여부"):
+    muri = True
+    muri_num += 1
 dealer3 = st.number_input("딜러 3 딜량 (단위 : 억)", value=30.0)
+if st.checkbox("딜러3 무리시너지 여부"):
+    muri = True
+    muri_num += 1
+
 
 dft = 90
+
+if muri == True:
+    if muri_num == 1:
+        boost = (1.05+1.07+1.08)/3
+    elif muri_num == 2:
+        boost = (1.07+1.07+1.08)/3
+    elif muri_num == 3:
+        boost =(1.08+1.08+1.08)/3
+    
 
 
 
@@ -100,16 +119,30 @@ if st.button("계산하기"):
     result = model.calculate(buf_str)
     
     st.subheader("📊 딜 기댓값")
-    for i, val in enumerate(model.new_party, 1):
-        st.write(f"딜러{i}: {val}")
-    st.success(f"총 파티 화력: {result}")
-    
-    st.caption("30/400 파티 기준")
-    st.success(f"{(result / dft) * 100:.1f}%")
+    if muri == True:
+        result = result*boost
+        for i, val in enumerate(model.new_party, 1):
+            st.write(f"딜러{i}: {val*(boost):.2f}")
+        
+        
+        st.success(f"총 파티 화력: {result:.2f}")
+            
+        st.caption("30/400 파티 기준")
+        st.success(f"{(result / dft) * 100:.2f}%")
 
-    st.caption("공대컷기준")
-    st.success(f"{(result/110) * 100:.1f}%")
-    
+        st.caption("공대컷기준")
+        st.success(f"{(result/110) * 100:.2f}%")
+    else:
+        for i, val in enumerate(model.new_party, 1):
+            st.write(f"딜러{i}: {val}")
+        st.success(f"총 파티 화력: {result:.2f}")
+            
+        st.caption("30/400 파티 기준")
+        st.success(f"{(result / dft) * 100:.2f}%")
+
+        st.caption("공대컷기준")
+        st.success(f"{(result/110) * 100:.2f}%")
+
 
 
 
