@@ -144,7 +144,7 @@ class dnfCalc:
         #             self.new_party.append(buf_evan)
                     
         
-        else:  # 크루세이더(남) 등
+        else:  # 크루세이더(남) or 메딕 등
             for idx, i in enumerate(self.dealers, start=1):
                 dealer_tag = f"딜러{idx}"
                 val = round(i * (buf_str / 500), 2)
@@ -183,7 +183,7 @@ muri2 = False
 muri3 = False
 
 
-buf_name = st.selectbox("버퍼 타입을 선택하세요", ["헤카테", "뮤즈", "크루세이더(여)","크루세이더(남)"])
+buf_name = st.selectbox("버퍼 타입을 선택하세요", ["헤카테", "뮤즈", "크루세이더(여)","크루세이더(남), 메딕"])
 
 
 buf_str = st.number_input("버프력 (예: 500)", value=500.0)
